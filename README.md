@@ -16,6 +16,9 @@ Add the following dependency to your pom.xml:
 </dependency>
 ```
 
+## Example
+>https://github.com/abel533/MyBatis-Spring-Boot
+
 ## Special Configurations
 一般情况下，你不需要做任何配置。
 
