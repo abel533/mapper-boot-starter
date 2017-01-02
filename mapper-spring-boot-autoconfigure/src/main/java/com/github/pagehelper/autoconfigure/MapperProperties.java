@@ -45,4 +45,28 @@ public class MapperProperties extends Config {
     public void setMappers(List<Class> mappers) {
         this.mappers = mappers;
     }
+
+    public String getUuid() {
+        return getUUID();
+    }
+
+    public void setUuid(String uuid) {
+        setUUID(uuid);
+    }
+
+    public boolean isBefore() {
+        return isBEFORE();
+    }
+
+    public void setBefore(boolean before) {
+        setBEFORE(before);
+    }
+
+    public String getIdentity() {
+        return getIDENTITY();
+    }
+
+    public void setIdentity(String identity) {
+        setIDENTITY(identity);
+    }
 }
