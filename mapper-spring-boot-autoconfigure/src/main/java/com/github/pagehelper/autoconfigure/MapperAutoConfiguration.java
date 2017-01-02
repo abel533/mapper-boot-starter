@@ -58,9 +58,7 @@ public class MapperAutoConfiguration {
     @PostConstruct
     public void addPageInterceptor() {
         MapperHelper mapperHelper = new MapperHelper();
-        //设置配置
         mapperHelper.setConfig(properties);
-        // 注册自己项目中使用的通用Mapper接口，这里没有默认值，必须手动注册
         if (properties.getMappers().size() > 0) {
             for (Class mapper : properties.getMappers()) {
                 mapperHelper.registerMapper(mapper);
@@ -68,7 +66,6 @@ public class MapperAutoConfiguration {
         } else {
             mapperHelper.registerMapper(Mapper.class);
         }
-        //配置完成后，执行下面的操作
         mapperHelper.processConfiguration(sqlSessionFactory.getConfiguration());
     }
 }
