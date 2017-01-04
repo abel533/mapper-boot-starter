@@ -16,6 +16,17 @@ Add the following dependency to your pom.xml:
 </dependency>
 ```
 
+当使用低版本的 Spring Boot 时（例如 1.3 或更低版本），你还可以尝试 0.1.0 版本：
+
+When using the earlier version of Spring Boot ( for example, version 1.3 or earlier ), you can also try the 0.1.0 version :
+```xml
+<dependency>
+    <groupId>tk.mybatis</groupId>
+    <artifactId>mapper-spring-boot-starter</artifactId>
+    <version>0.1.0</version>
+</dependency>
+```
+
 ## Example
 >https://github.com/abel533/MyBatis-Spring-Boot
 
