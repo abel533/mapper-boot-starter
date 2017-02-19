@@ -26,6 +26,13 @@ When using the earlier version of Spring Boot ( for example, version 1.3 or earl
     <version>0.1.0</version>
 </dependency>
 ```
+## 1.1.0 - 2017-02-19
+
+- mybatis 升级到 3.4.2
+- mapper 升级到 3.4.0
+- mybatis-spring 升级到 1.3.1
+- mybatis-spring-boot 升级到 1.2.0
+- spring-boot 升级到 1.4.4.RELEASE
 
 ## Example
 >https://github.com/abel533/MyBatis-Spring-Boot
