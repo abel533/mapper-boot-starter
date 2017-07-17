@@ -12,10 +12,18 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>tk.mybatis</groupId>
     <artifactId>mapper-spring-boot-starter</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
 </dependency>
 ```
+## 1.1.2 - 2017-07-17
+
+- 通用 Mapper 3.4.1
+- mybatis 3.4.4
+- mybatis-spring-boot 1.3.0
+- spring-boot 1.5.4.RELEASE
+
 ## 1.1.1 - 2017-03-28
+
 - 解决 1.1.0 版本不一致的问题
 - 增加对多数据源的支持，感谢 邱占波的 [PR #2](https://github.com/abel533/mapper-boot-starter/pull/2)
 
