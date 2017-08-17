@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 
-package com.github.pagehelper.autoconfigure;
+package tk.mybatis.mapper.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import tk.mybatis.mapper.entity.Config;
