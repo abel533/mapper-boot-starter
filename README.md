@@ -12,9 +12,14 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>tk.mybatis</groupId>
     <artifactId>mapper-spring-boot-starter</artifactId>
-    <version>1.1.6</version>
+    <version>1.1.7</version>
 </dependency>
 ```
+## 1.1.7 - 2017-12-17
+
+- 通用 Mapper 3.4.6
+- spring-boot 1.5.9.RELEASE
+
 ## 1.1.6 - 2017-11-11
 
 - 通用 Mapper 3.4.5
