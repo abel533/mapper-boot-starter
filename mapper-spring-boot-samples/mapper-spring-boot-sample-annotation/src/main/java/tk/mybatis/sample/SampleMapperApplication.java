@@ -24,13 +24,13 @@
 
 package tk.mybatis.sample;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.sample.domain.Country;
 import tk.mybatis.sample.mapper.CountryMapper;
+import tk.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
 
@@ -45,7 +45,6 @@ public class SampleMapperApplication implements CommandLineRunner {
         SpringApplication.run(SampleMapperApplication.class, args);
     }
 
-    @Override
     public void run(String... args) throws Exception {
         List<Country> countries = countryMapper.selectAll();
         for (Country country : countries) {

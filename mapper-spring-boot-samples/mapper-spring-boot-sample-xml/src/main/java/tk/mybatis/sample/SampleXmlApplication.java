@@ -43,7 +43,6 @@ public class SampleXmlApplication implements CommandLineRunner {
         SpringApplication.run(SampleXmlApplication.class, args);
     }
 
-    @Override
     public void run(String... args) throws Exception {
         Country c = countryMapper.selectByPrimaryKey(1);
         System.out.println("Key : 1, Country Name: " + c.getCountryname());
