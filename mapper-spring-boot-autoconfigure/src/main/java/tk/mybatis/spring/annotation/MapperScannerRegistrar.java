@@ -3,7 +3,6 @@ package tk.mybatis.spring.annotation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
@@ -19,21 +18,19 @@ import tk.mybatis.spring.mapper.MapperFactoryBean;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 
 public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, ResourceLoaderAware, EnvironmentAware {
 
-
     private ResourceLoader resourceLoader;
 
-    private Properties properties;
+    private Environment environment;
 
+    @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
 
         AnnotationAttributes annoAttrs = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(MapperScan.class.getName()));
         ClassPathMapperScanner scanner = new ClassPathMapperScanner(registry);
-        scanner.setMapperProperties(properties);
+        scanner.setMapperProperties(environment);
         // this check is needed in Spring 3.1
         if (resourceLoader != null) {
             scanner.setResourceLoader(resourceLoader);
@@ -80,20 +77,13 @@ public class MapperScannerRegistrar implements ImportBeanDefinitionRegistrar, Re
         scanner.doScan(StringUtils.toStringArray(basePackages));
     }
 
-    public void setResourceLoader(ResourceLoader resourceLoader) {
-        this.resourceLoader = resourceLoader;
+    @Override
+    public void setEnvironment(Environment environment) {
+        this.environment = environment;
     }
 
-    public void setEnvironment(Environment environment) {
-        Map<String, Object> properties = new RelaxedPropertyResolver(environment, "mapper").getSubProperties(".");
-        Properties prop = new Properties();
-        if (properties != null){
-            for (Map.Entry<String,Object> entry : properties.entrySet()){
-                String key = entry.getKey();
-                Object value = entry.getValue();
-                prop.setProperty(key, value == null ? null : value.toString());
-            }
-        }
-        this.properties = prop;
+    @Override
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
     }
 }
