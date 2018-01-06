@@ -34,6 +34,7 @@ import tk.mybatis.sample.mapper.CountryMapper;
 import java.util.List;
 
 @SpringBootApplication
+//@MapperScan(basePackages = "tk.mybatis.sample", annotationClass = Mapper.class )
 public class SampleXmlApplication implements CommandLineRunner {
 
     @Autowired
@@ -43,6 +44,7 @@ public class SampleXmlApplication implements CommandLineRunner {
         SpringApplication.run(SampleXmlApplication.class, args);
     }
 
+    @Override
     public void run(String... args) throws Exception {
         Country c = countryMapper.selectByPrimaryKey(1);
         System.out.println("Key : 1, Country Name: " + c.getCountryname());

@@ -45,6 +45,7 @@ public class SampleMapperApplication implements CommandLineRunner {
         SpringApplication.run(SampleMapperApplication.class, args);
     }
 
+    @Override
     public void run(String... args) throws Exception {
         List<Country> countries = countryMapper.selectAll();
         for (Country country : countries) {
