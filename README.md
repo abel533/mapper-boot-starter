@@ -12,9 +12,17 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>tk.mybatis</groupId>
     <artifactId>mapper-spring-boot-starter</artifactId>
-    <version>1.1.7</version>
+    <version>1.2.0</version>
 </dependency>
 ```
+
+## 1.2.0 - 2018-01-08
+
+- 通用 Mapper 3.5.0
+- 去掉 mybatis-spring-boot-starter 依赖，不在使用 mybatis 官方 starter，使用通用 Mapper 时不要再引入官方 starter
+- 参考 mybatis 官方 starter 重新实现，解决 mapper 初始化可能存在的问题 [pr#5 by fengcbo](https://github.com/abel533/mapper-boot-starter/pull/5)
+- 如果需要使用 `@MapperScan` 请选择 tk 开头的 `tk.mybatis.spring.annotation.MapperScan`
+
 ## 1.1.7 - 2017-12-17
 
 - 通用 Mapper 3.4.6
