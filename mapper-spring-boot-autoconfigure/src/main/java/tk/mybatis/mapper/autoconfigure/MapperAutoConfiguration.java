@@ -33,6 +33,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -77,6 +78,7 @@ import java.util.List;
 @ConditionalOnBean(DataSource.class)
 @EnableConfigurationProperties({MybatisProperties.class})
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
+@AutoConfigureBefore(name = "org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration")
 public class MapperAutoConfiguration {
 
     private static final Logger logger = LoggerFactory.getLogger(MapperAutoConfiguration.class);
