@@ -12,9 +12,17 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>tk.mybatis</groupId>
     <artifactId>mapper-spring-boot-starter</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
+
+## 1.2.1 - 2018-01-10
+
+- 为了增强兼容性，`MapperAutoConfiguration` 增加 `@AutoConfigureBefore(name = "org.mybatis.spring.boot.autoconfigure.MybatisAutoConfiguration")`
+即使依赖中存在 MyBatis 的 starter，Mapper 也可以优先使用自动配置，MyBatis后续就不会触发生成 `@Bean`
+
+- 支持简单的 relax 绑定，例如 not-empty 会转换为 notEmpty 使用，兼容 spring boot 配置方式
+
 
 ## 1.2.0 - 2018-01-08
 
