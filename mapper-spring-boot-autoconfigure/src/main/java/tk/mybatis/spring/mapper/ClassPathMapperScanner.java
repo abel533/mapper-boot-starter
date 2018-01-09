@@ -46,6 +46,41 @@ public class ClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathM
         }
     }
 
+    /**
+     * 兼容简单的属性绑定，如 not-empty 和 not_empty，不支持 NOT_EMPTY
+     *
+     * @param property
+     * @return
+     */
+    private String adaptRelaxBinding(String property) {
+        if (property.indexOf("-") != -1 || property.indexOf("_") != -1) {
+            property = property.toLowerCase();
+            StringBuilder builder = new StringBuilder(property.length());
+            boolean uppercase = false;
+            for (int i = 0; i < property.length(); i++) {
+                char c = property.charAt(i);
+                if (c == '-' || c == '_') {
+                    uppercase = true;
+                    continue;
+                }
+                if (uppercase) {
+                    builder.append(String.valueOf(c).toUpperCase());
+                    uppercase = false;
+                } else {
+                    builder.append(c);
+                }
+            }
+            return builder.toString();
+        } else {
+            return property;
+        }
+    }
+
+    /**
+     * 从环境变量中获取 mapper 配置信息
+     *
+     * @param environment
+     */
     public void setMapperProperties(Environment environment) {
         if (environment != null) {
             Properties properties = new Properties();
@@ -64,6 +99,10 @@ public class ClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathM
                                 //去掉数组索引
                                 propertyName = matcher.replaceAll("");
                             }
+                            //处理relax情况
+                            propertyName = adaptRelaxBinding(propertyName);
+                            //去掉前缀
+                            propertyName = propertyName.substring(propertyName.lastIndexOf(".") + 1);
                             //将数组形式转换为逗号分割形式
                             if (properties.containsKey(propertyName)) {
                                 propertyValue = properties.getProperty(propertyName) + "," + propertyValue;
