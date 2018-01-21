@@ -3,61 +3,19 @@ package tk.mybatis.spring.mapper;
 import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.core.env.*;
+import org.springframework.core.env.Environment;
+import tk.mybatis.mapper.autoconfigure.MapperProperties;
 import tk.mybatis.mapper.mapperhelper.MapperHelper;
 import tk.mybatis.mapper.util.StringUtil;
 
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 public class ClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathMapperScanner {
-
-    public static final Pattern ARRAY_PATTERN = Pattern.compile("\\[\\d+\\]$");
-
-    public static final String MAPPER_PREFIX = "mapper.";
 
     private MapperHelper mapperHelper = new MapperHelper();
 
     public ClassPathMapperScanner(BeanDefinitionRegistry registry) {
         super(registry);
-    }
-
-    /**
-     * 兼容简单的属性绑定
-     *
-     * @param property
-     * @return
-     */
-    public static Set<String> adaptRelaxBinding(String property) {
-        Set<String> result = new HashSet<String>();
-        result.add(property);
-        result.add(property.toUpperCase());
-        result.add(property.toLowerCase());
-        if (property.indexOf("-") != -1 || property.indexOf("_") != -1) {
-            property = property.toLowerCase();
-            StringBuilder builder = new StringBuilder(property.length());
-            boolean uppercase = false;
-            for (int i = 0; i < property.length(); i++) {
-                char c = property.charAt(i);
-                if (c == '-' || c == '_') {
-                    uppercase = true;
-                    continue;
-                }
-                if (uppercase) {
-                    builder.append(String.valueOf(c).toUpperCase());
-                    uppercase = false;
-                } else {
-                    builder.append(c);
-                }
-            }
-            property = builder.toString();
-            result.add(property);
-            result.add(property.toUpperCase());
-            result.add(property.toLowerCase());
-        }
-        return result;
     }
 
     @Override
@@ -87,41 +45,7 @@ public class ClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathM
      * @param environment
      */
     public void setMapperProperties(Environment environment) {
-        Map<String, Object> p2 = new RelaxedPropertyResolver(environment, "mapper").getSubProperties(".");
-        System.out.println(p2);
-        if (environment != null) {
-            Properties properties = new Properties();
-            MutablePropertySources propertySources = ((AbstractEnvironment) environment).getPropertySources();
-            Iterator<PropertySource<?>> iterator = propertySources.iterator();
-            while (iterator.hasNext()) {
-                PropertySource<?> propertySource = iterator.next();
-                if (propertySource instanceof EnumerablePropertySource) {
-                    EnumerablePropertySource enumerablePropertySource = (EnumerablePropertySource) propertySource;
-                    String[] propertyNames = enumerablePropertySource.getPropertyNames();
-                    for (String propertyName : propertyNames) {
-                        if (propertyName.startsWith(MAPPER_PREFIX)) {
-                            String propertyValue = environment.getProperty(propertyName);
-                            Matcher matcher = ARRAY_PATTERN.matcher(propertyName);
-                            if (matcher.find()) {
-                                //去掉数组索引
-                                propertyName = matcher.replaceAll("");
-                            }
-                            //去掉前缀
-                            propertyName = propertyName.substring(propertyName.lastIndexOf(".") + 1);
-                            //处理relax情况
-                            Set<String> propertyNameSet = adaptRelaxBinding(propertyName);
-                            for (String prop : propertyNameSet) {
-                                //将数组形式转换为逗号分割形式
-                                if (properties.containsKey(prop)) {
-                                    propertyValue = properties.getProperty(prop) + "," + propertyValue;
-                                }
-                                properties.put(prop, propertyValue);
-                            }
-                        }
-                    }
-                }
-            }
-            mapperHelper.setProperties(properties);
-        }
+        MapperProperties mapperProperties = SpringBootBindUtil.bind(environment, MapperProperties.class, MapperProperties.PREFIX);
+        mapperHelper.setConfig(mapperProperties);
     }
 }

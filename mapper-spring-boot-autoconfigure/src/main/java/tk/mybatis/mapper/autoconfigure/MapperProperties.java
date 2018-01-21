@@ -30,14 +30,17 @@ import tk.mybatis.mapper.entity.Config;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * 这个类存在的主要目的是方便 IDE 自动提示 mapper. 开头的配置
  *
  * @author liuzh
  * @since 2017/1/2.
  */
-@ConfigurationProperties(prefix = "mapper")
+@ConfigurationProperties(prefix = MapperProperties.PREFIX)
 public class MapperProperties extends Config {
+    public static final String PREFIX = "mapper";
+
     private List<Class> mappers = new ArrayList<Class>();
 
     public String getIdentity() {
