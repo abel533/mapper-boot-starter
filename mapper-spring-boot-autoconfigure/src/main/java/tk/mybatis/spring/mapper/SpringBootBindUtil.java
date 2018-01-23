@@ -69,7 +69,7 @@ public abstract class SpringBootBindUtil {
         @Override
         public <T> T bind(Environment environment, Class<T> targetClass, String prefix) {
             /**
-             为了方法以后直接依赖 Spring Boot 2.x 时不需要改动代码，这里也使用反射
+             为了方便以后直接依赖 Spring Boot 2.x 时不需要改动代码，这里也使用反射
              try {
              RelaxedPropertyResolver resolver = new RelaxedPropertyResolver(environment);
              Map<String, Object> properties = resolver.getSubProperties("");
