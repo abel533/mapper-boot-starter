@@ -12,9 +12,15 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>tk.mybatis</groupId>
     <artifactId>mapper-spring-boot-starter</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.2</version>
 </dependency>
 ```
+
+## 1.2.2 - 2018-01-24
+
+- 增加 `tk.mybatis.spring.mapper.SpringBootBindUtil`，使用原生方式兼容 Spring Boot 1.x 和 2.x 版本，已经不存在 relax 值问题，以前的配置不需要修改即可使用。
+- 特别注意，如果使用了 `@MapperScan` 注解，请使用 `tk.mybatis.spring.annotation.MapperScan` 注解。
+- 通用 Mapper 升级到 3.5.1 版本。
 
 ## 1.2.1 - 2018-01-10
 
