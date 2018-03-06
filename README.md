@@ -12,9 +12,16 @@ Add the following dependency to your pom.xml:
 <dependency>
     <groupId>tk.mybatis</groupId>
     <artifactId>mapper-spring-boot-starter</artifactId>
-    <version>1.2.3</version>
+    <version>1.2.4</version>
 </dependency>
 ```
+
+## 1.2.4 - 2018-03-06
+
+- 解决 mappers 参数不起作用的 bug。
+- 通用 Mapper 升级到 3.5.3 版本。
+- Spring Boot 升级到 2.0.0-RELEASE 版本。
+- 解决 Spring Boot 兼容性问题 (`Binder` 现在如果都不匹配就抛出异常了)。
 
 ## 1.2.3 - 2018-01-24
 

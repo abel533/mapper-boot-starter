@@ -4,7 +4,7 @@ import org.springframework.beans.factory.config.BeanDefinitionHolder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.core.env.Environment;
-import tk.mybatis.mapper.autoconfigure.MapperProperties;
+import tk.mybatis.mapper.entity.Config;
 import tk.mybatis.mapper.mapperhelper.MapperHelper;
 import tk.mybatis.mapper.util.StringUtil;
 
@@ -45,7 +45,9 @@ public class ClassPathMapperScanner extends org.mybatis.spring.mapper.ClassPathM
      * @param environment
      */
     public void setMapperProperties(Environment environment) {
-        MapperProperties mapperProperties = SpringBootBindUtil.bind(environment, MapperProperties.class, MapperProperties.PREFIX);
-        mapperHelper.setConfig(mapperProperties);
+        Config config = SpringBootBindUtil.bind(environment, Config.class, Config.PREFIX);
+        if (config != null) {
+            mapperHelper.setConfig(config);
+        }
     }
 }
