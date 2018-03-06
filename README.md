@@ -4,6 +4,12 @@ Mapper-Spring-Boot-Starter 帮助你集成通用 Mapper 到 Spring Boot。
 
 Mapper-Spring-Boot-Starter will help you use Mapper with Spring Boot.
 
+## 本项目已经包含在 https://github.com/abel533/Mapper
+
+https://github.com/abel533/Mapper/tree/master/spring-boot-starter
+
+自 2.0.0 版本起，这个项目不在进行维护，后期还会删除该项目。
+
 ## How to use
 在 pom.xml 中添加如下依赖：
 
